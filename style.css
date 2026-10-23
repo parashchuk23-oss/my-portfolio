@@ -5,6 +5,17 @@
   --muted: #65706b;
   --accent: #e7613f;
   --border: #dcd6ca;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --background: #111916;
+  --card: #1b2722;
+  --text: #f4f1e9;
+  --muted: #b1bcb6;
+  --accent: #ff8a68;
+  --border: #3b4942;
+  color-scheme: dark;
 }
 
 * {
@@ -21,15 +32,44 @@ body {
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .profile-card {
+  position: relative;
   width: min(100%, 680px);
   padding: clamp(32px, 7vw, 64px);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 28px;
   box-shadow: 0 24px 60px rgba(23, 35, 31, 0.1);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 28px auto;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--background);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  outline-offset: 3px;
 }
 
 .avatar {
@@ -128,8 +168,20 @@ h1 {
     border-radius: 20px;
   }
 
+  .theme-toggle {
+    margin-bottom: 24px;
+  }
+
   .contacts a {
     font-size: 14px;
     overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .profile-card,
+  .theme-toggle {
+    transition: none;
   }
 }
